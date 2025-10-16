@@ -4,67 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Counter</title>
-    <!-- Load Bootstrap CSS from CDN -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Load jQuery from CDN -->
+    <!-- Load jQuery from the official CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Load Tailwind CSS from CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Custom styles for a pretty UI */
         body {
-            background-color: #f8f9fa;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-color: #f9fafb;
         }
-        .counter-container {
-            background-color: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        .card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 300px;
+        }
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #4f46e5;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #4338ca;
+        }
+        input[type="number"] {
+            width: 70px;
+            margin: 10px auto;
+            padding: 5px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="counter-container text-center">
-        <h1 class="mb-4">Counter</h1>
-        <h2 id="counter-value" class="display-4 mb-4">0</h2>
-        <div class="mb-4">
-            <button id="increment-btn" class="btn btn-success m-1">Increment</button>
-            <button id="decrement-btn" class="btn btn-danger m-1">Decrement</button>
-            <button id="reset-btn" class="btn btn-secondary m-1">Reset</button>
-        </div>
+    <div class="card">
+        <h1 class="text-2xl font-bold mb-4">Counter</h1>
+        <div id="counter-value" class="text-3xl font-bold mb-4">0</div>
+        <input type="number" id="step-input" value="1" min="1">
         <div>
-            <label for="step-input" class="mr-2">Step:</label>
-            <input type="number" id="step-input" class="form-control d-inline w-25" value="1">
+            <button id="increment-btn">Increment</button>
+            <button id="decrement-btn">Decrement</button>
+            <button id="reset-btn" class="bg-red-500">Reset</button>
         </div>
     </div>
-
     <script>
-        $(document).ready(function() {
-            let counterValue = 0;
+        // Functionality for counter buttons
+        $(document).ready(function(){
+            let counter = 0;
 
-            function updateCounter(value) {
-                $('#counter-value').text(value);
+            function updateCounterDisplay() {
+                $('#counter-value').text(counter);
             }
 
-            // Increment button click
-            $('#increment-btn').on('click', function() {
-                const step = parseInt($('#step-input').val()) || 1;
-                counterValue += step;
-                updateCounter(counterValue);
+            $('#increment-btn').click(function() {
+                let step = parseInt($('#step-input').val());
+                counter += step;
+                updateCounterDisplay();
             });
 
-            // Decrement button click
-            $('#decrement-btn').on('click', function() {
-                const step = parseInt($('#step-input').val()) || 1;
-                counterValue -= step;
-                updateCounter(counterValue);
+            $('#decrement-btn').click(function() {
+                let step = parseInt($('#step-input').val());
+                counter -= step;
+                updateCounterDisplay();
             });
 
-            // Reset button click
-            $('#reset-btn').on('click', function() {
-                counterValue = 0;
-                updateCounter(counterValue);
+            $('#reset-btn').click(function() {
+                counter = 0;
+                updateCounterDisplay();
             });
         });
     </script>
